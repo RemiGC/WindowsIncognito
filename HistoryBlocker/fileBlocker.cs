@@ -19,7 +19,7 @@ namespace HistoryBlocker
             internal bool fileLocked;
         }
 
-        static string AutomaticDestinationPath = "\\Microsoft\\Windows\\Recent\\AutomaticDestinations\\";
+        public static string AutomaticDestinationPath = @"Microsoft\Windows\Recent\AutomaticDestinations";
         static string Extension = ".automaticDestinations-ms";
 
         FileStream fileStream;
@@ -35,7 +35,7 @@ namespace HistoryBlocker
             fileData.fileLocked = false;
             fileData.msFile = strAppMsFile;
             fileData.applicationName = strAppName;
-            fileData.fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + AutomaticDestinationPath + fileData.msFile + Extension;
+            fileData.fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) , AutomaticDestinationPath,  fileData.msFile + Extension);
         }
 
         public override string ToString()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -37,7 +38,8 @@ namespace HistoryBlocker
         {
             for(int i = 0;i<listApp.SelectedItems.Count;i++)
             {
-                try{
+                try
+                {
                     fileBlocker theBlocker = (fileBlocker)listApp.SelectedItems[i];
                     if (!theBlocker.IsLocked())
                     {
@@ -66,9 +68,10 @@ namespace HistoryBlocker
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBrowse_Click(object sender, EventArgs e)
         {
-
+            string jumpListPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), fileBlocker.AutomaticDestinationPath);
+            System.Diagnostics.Process.Start("explorer.exe", jumpListPath);
         }
     }
 }
