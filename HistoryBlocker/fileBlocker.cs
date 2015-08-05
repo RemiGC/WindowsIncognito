@@ -100,11 +100,11 @@ namespace HistoryBlocker
             {
                 if (IsLocked())
                 {
-                    return AppName + " Locked";
+                    return "Locked";
                 }
                 else
                 {
-                    return AppName + " Unlocked";
+                    return "Unlocked";
                 }
             }
         }

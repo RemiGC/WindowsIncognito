@@ -17,11 +17,11 @@ namespace HistoryBlocker
         {
             InitializeComponent();
             blockerList = new applicationsList();
-            listApp.DataSource = blockerList;
+            /*listApp.DataSource = blockerList;
             listApp.DisplayMember = "Status";
             listApp.ValueMember = "AppName";
             listApp.Refresh();
-            listApp.Update();
+            listApp.Update();*/
             
         }
 
@@ -30,17 +30,17 @@ namespace HistoryBlocker
             InitializeComponent();
             blockerList = list;
             applicationsListBindingSource.DataSource = (IBindingList)blockerList;
-            listApp.DataSource = applicationsListBindingSource;
-            listApp.DisplayMember = "Status";
+            /*listApp.DataSource = applicationsListBindingSource;
+            listApp.DisplayMember = "Status";*/
         }
 
         private void btnLock_Click(object sender, EventArgs e)
         {
-            for(int i = 0;i<listApp.SelectedItems.Count;i++)
+            for(int i = 0;i<dataGridAppList.SelectedRows.Count;i++)
             {
                 try
                 {
-                    fileBlocker theBlocker = (fileBlocker)listApp.SelectedItems[i];
+                    fileBlocker theBlocker = (fileBlocker)dataGridAppList.SelectedRows[i].DataBoundItem;
                     if (!theBlocker.IsLocked())
                     {
                         theBlocker.Lock();
@@ -56,9 +56,9 @@ namespace HistoryBlocker
 
         private void btnUnlock_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < listApp.SelectedItems.Count; i++)
+            for (int i = 0; i < dataGridAppList.SelectedRows.Count; i++)
             {
-                fileBlocker theBlocker = (fileBlocker)listApp.SelectedItems[i];
+                fileBlocker theBlocker = (fileBlocker)dataGridAppList.SelectedRows[i].DataBoundItem;
                 if (theBlocker.IsLocked())
                 {
                     theBlocker.Unlock();
