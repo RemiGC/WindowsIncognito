@@ -41,6 +41,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenMcdf, Version=1.5.4.22637, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenMcdf.1.5.4.22637\lib\OpenMcdf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -72,6 +76,7 @@
     </Compile>
     <Compile Include="AppListBuilder.cs" />
     <Compile Include="fileBlocker.cs" />
+    <Compile Include="FolderWatcher.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -96,6 +101,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

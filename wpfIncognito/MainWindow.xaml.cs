@@ -15,6 +15,7 @@ namespace wpfIncognito
     {
         private Collection<fileBlocker> fileBlockerList;
         private bool allIncognito;
+        private FolderWatcher folderWatcher;
 
         public MainWindow()
         {
@@ -38,6 +39,7 @@ namespace wpfIncognito
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {  
             dataGrid.ItemsSource = fileBlockerList;
+            folderWatcher = new FolderWatcher(fileBlockerList);
         }
         #endregion
 

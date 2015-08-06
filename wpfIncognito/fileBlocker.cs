@@ -40,6 +40,16 @@ namespace wpfIncognito
             return AppName;
         }
 
+        public void ReCheckFileInfo()
+        {
+            FileInfo newFileInfo = new FileInfo(fileData.fullPath);
+            if(newFileInfo.LastWriteTime != fileData.fileInfo.LastWriteTime)
+            {
+                fileData.fileInfo = newFileInfo;
+                NotifyPropertyChanged("LastModified");
+            }
+        }
+
         public override bool Equals(object other)
         {
             bool result = false;
@@ -110,7 +120,7 @@ namespace wpfIncognito
         {
             get
             {
-                return fileData.fileInfo.LastAccessTime;
+                return fileData.fileInfo.LastWriteTime;
             }
         }
 
