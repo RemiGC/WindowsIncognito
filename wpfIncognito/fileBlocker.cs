@@ -1,52 +1,89 @@
 ﻿using System;
 using System.IO;
 using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace wpfIncognito
 {
-    public class fileBlocker : INotifyPropertyChanged//, IComparable
+    [Serializable()]
+    public class fileBlocker : INotifyPropertyChanged
     {
-        struct fileBlockerData
+        private string appName;
+        public string AppName
         {
-            internal string applicationName;
-            internal string msFile;
-            internal string fullPath;
-            internal bool fileLocked;
-            internal FileInfo fileInfo;
+            get
+            {
+                return this.appName;
+            }
+            set
+            {
+                this.appName = value;
+                NotifyPropertyChanged("AppName");
+            }
         }
+
+        private ulong appID;
+
+        [XmlAttribute("AppID")]
+        public ulong AppID
+        {
+            get
+            {
+                return this.appID;
+            }
+            set
+            {
+                this.appID = value;
+            }
+        }
+
+        private bool fileLocked;
+        private FileInfo fileInfo;         
 
         public static string AutomaticDestinationPath = @"Microsoft\Windows\Recent\AutomaticDestinations";
         static string Extension = ".automaticDestinations-ms";
 
-        FileStream fileStream;
+        [field: NonSerialized()]
+        private FileStream fileStream;
 
-        private fileBlockerData fileData;
-
+        [field: NonSerialized()]
         public event PropertyChangedEventHandler PropertyChanged;
 
         //private applicationsList parent;
 
+        private fileBlocker()
+        {
+        }
+
         public fileBlocker(string strAppName,string strAppMsFile)
         {
-            fileData.fileLocked = false;
-            fileData.msFile = strAppMsFile;
-            fileData.applicationName = strAppName;
-            fileData.fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) , AutomaticDestinationPath,  fileData.msFile + Extension);
-            fileData.fileInfo = new FileInfo(fileData.fullPath);
+            this.fileLocked = false;
+            this.AppID = UInt64.Parse(strAppMsFile,System.Globalization.NumberStyles.HexNumber);
+            this.AppName = strAppName;
+            ReCheckFileInfo();
         }
 
         public override string ToString()
         {
-            return AppName;
+            return AppID.ToString("X");
         }
 
         public void ReCheckFileInfo()
         {
-            FileInfo newFileInfo = new FileInfo(fileData.fullPath);
-            if(newFileInfo.LastWriteTime != fileData.fileInfo.LastWriteTime)
+            if (fileInfo != null)
             {
-                fileData.fileInfo = newFileInfo;
-                NotifyPropertyChanged("LastModified");
+                FileInfo newFileInfo = new FileInfo(FullPath);
+                if (newFileInfo.LastWriteTime != fileInfo.LastWriteTime)
+                {
+                    FileInfo oldFileInfo = fileInfo;
+                    fileInfo = newFileInfo;
+                    NotifyPropertyChanged("LastModified");
+                    oldFileInfo = null;
+                }
+            }
+            else
+            {
+                fileInfo = new FileInfo(FullPath);
             }
         }
 
@@ -62,23 +99,14 @@ namespace wpfIncognito
             return result;
         }
 
-        /// <summary>
-        /// return the msFile hexa to int
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return ((string)AppName).GetHashCode();
-        }
-
         public bool Lock()
         {
-            if (!fileData.fileLocked)
+            if (!fileLocked)
             {
-                fileStream = new FileStream(fileData.fullPath, FileMode.Open, FileAccess.Write);
+                fileStream = new FileStream(FullPath, FileMode.Open, FileAccess.Write);
                 if (fileStream != null)
                 {
-                    fileData.fileLocked = true;
+                    fileLocked = true;
                     NotifyPropertyChanged("Status");
                     return true;
                 }
@@ -90,14 +118,6 @@ namespace wpfIncognito
             else
             {
                 return false;
-            }
-        }
-
-        public string AppName
-        {
-            get
-            {
-                return fileData.applicationName;
             }
         }
 
@@ -120,26 +140,34 @@ namespace wpfIncognito
         {
             get
             {
-                return fileData.fileInfo.LastWriteTime;
+                return fileInfo.LastWriteTime;
             }
         }
 
-        public string msName
+        public string FileName
         {
             get
             {
-                return fileData.msFile;
+                return AppID.ToString("X") + Extension;
+            }
+        }
+
+        public string FullPath
+        {
+            get
+            {
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AutomaticDestinationPath, FileName);
             }
         }
 
 
         public void Unlock()
         {
-            if (fileData.fileLocked)
+            if (fileLocked)
             {
                 fileStream.Close();
                 fileStream = null;
-                fileData.fileLocked = false;
+                fileLocked = false;
                 NotifyPropertyChanged("Status");
             }
         }
@@ -160,69 +188,17 @@ namespace wpfIncognito
         /// <returns></returns>
         private bool InternalEquals(fileBlocker that)
         {
-            return (this.msName == that.msName);
+            return (this.AppID == that.AppID);
+        }
+
+        public override int GetHashCode()
+        {
+            return AppID.GetHashCode();
         }
 
         public bool IsLocked()
         {
-            return fileData.fileLocked;
+            return fileLocked;
         }
-
-        /*public int CompareTo(object obj)
-        {
-            fileBlocker fb = (fileBlocker)obj;
-            return string.Compare(this.msName, fb.msName);
-        }*/
-
-        //#region IEditableObject
-
-        /*internal applicationsList Parent
-        {
-            get
-            {
-                return parent;
-            }
-            set
-            {
-                parent = value;
-            }
-        }/*
-
-       public void BeginEdit()
-        {
-            if (!inTxn)
-            {
-                this.backupData = fileData;
-                inTxn = true;
-            }
-        }
-
-       public void CancelEdit()
-        {
-            if (inTxn)
-            {
-                this.fileData = backupData;
-                inTxn = false;
-            }
-        }
-
-       public void EndEdit()
-        {
-            if (inTxn)
-            {
-                backupData = new fileBlockerData();
-                inTxn = false;
-            }
-        }
-
-        private void OnFileBlockerDataChanged()
-        {
-            if (!inTxn && Parent != null)
-            {
-                Parent.fileBlockerChanged(this);
-            }
-        }
-		
-        #endregion*/
     }
 }

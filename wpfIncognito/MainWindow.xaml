@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpfIncognito"
         mc:Ignorable="d"
-        Title="WindowsIncognito" Height="550" Width="900" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico">
+        Title="WindowsIncognito" Height="550" Width="900" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" Closed="Window_Closed">
     <Grid>
         <DataGrid x:Name="dataGrid" Margin="10,10,10,60"/>
         <Button x:Name="btnBrowse" Content="_Browse folder" HorizontalAlignment="Left" Margin="10,0,0,10" Width="94" Height="20" VerticalAlignment="Bottom" Click="btnBrowse_Click"/>

@@ -5,6 +5,8 @@ using System.Windows;
 using System.IO;
 using System.Windows.Shapes;
 using System.Threading;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace wpfIncognito
 {
@@ -126,5 +128,19 @@ namespace wpfIncognito
         }
 
         #endregion
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+           /* XmlSerializer serializer = new XmlSerializer(fileBlockerList.GetType());
+            using (StreamWriter writer = new StreamWriter("applist.xml"))
+            {
+                serializer.Serialize(writer, fileBlockerList);
+            }*/
+
+            XmlSerializer serializer = new XmlSerializer(typeof(Collection<fileBlocker>));
+            TextWriter textWriter = new StreamWriter("applist.xml");
+            serializer.Serialize(textWriter, fileBlockerList);
+            textWriter.Close();
+        }
     }
 }

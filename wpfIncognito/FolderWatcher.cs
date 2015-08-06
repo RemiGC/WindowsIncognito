@@ -33,7 +33,7 @@ namespace wpfIncognito
         {
             string name = Path.GetFileNameWithoutExtension(e.Name);
 
-            var currentFile = fileBlockerList.Single(i => i.msName == name);
+            var currentFile = fileBlockerList.Single(i => i.FileName == name);
             currentFile.ReCheckFileInfo();
         }
     }
