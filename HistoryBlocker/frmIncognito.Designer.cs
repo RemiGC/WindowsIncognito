@@ -30,15 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.btnLock = new System.Windows.Forms.Button();
-            this.applicationsListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnUnlock = new System.Windows.Forms.Button();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.dataGridAppList = new System.Windows.Forms.DataGridView();
             this.appNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.msNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.applicationsListBindingSource)).BeginInit();
+            this.applicationsListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAppList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.applicationsListBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLock
@@ -47,14 +47,10 @@
             this.btnLock.Location = new System.Drawing.Point(393, 387);
             this.btnLock.Name = "btnLock";
             this.btnLock.Size = new System.Drawing.Size(75, 23);
-            this.btnLock.TabIndex = 1;
+            this.btnLock.TabIndex = 2;
             this.btnLock.Text = "&Lock";
             this.btnLock.UseVisualStyleBackColor = true;
             this.btnLock.Click += new System.EventHandler(this.btnLock_Click);
-            // 
-            // applicationsListBindingSource
-            // 
-            this.applicationsListBindingSource.DataSource = typeof(HistoryBlocker.applicationsList);
             // 
             // btnUnlock
             // 
@@ -62,7 +58,7 @@
             this.btnUnlock.Location = new System.Drawing.Point(474, 387);
             this.btnUnlock.Name = "btnUnlock";
             this.btnUnlock.Size = new System.Drawing.Size(75, 23);
-            this.btnUnlock.TabIndex = 2;
+            this.btnUnlock.TabIndex = 3;
             this.btnUnlock.Text = "&Unlock";
             this.btnUnlock.UseVisualStyleBackColor = true;
             this.btnUnlock.Click += new System.EventHandler(this.btnUnlock_Click);
@@ -73,17 +69,22 @@
             this.btnBrowse.Location = new System.Drawing.Point(13, 387);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(75, 23);
-            this.btnBrowse.TabIndex = 3;
+            this.btnBrowse.TabIndex = 4;
             this.btnBrowse.Text = "&Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // dataGridAppList
             // 
+            this.dataGridAppList.AllowUserToAddRows = false;
+            this.dataGridAppList.AllowUserToDeleteRows = false;
+            this.dataGridAppList.AllowUserToOrderColumns = true;
+            this.dataGridAppList.AllowUserToResizeRows = false;
             this.dataGridAppList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridAppList.AutoGenerateColumns = false;
+            this.dataGridAppList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridAppList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridAppList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.appNameDataGridViewTextBoxColumn,
@@ -92,8 +93,11 @@
             this.dataGridAppList.DataSource = this.applicationsListBindingSource;
             this.dataGridAppList.Location = new System.Drawing.Point(13, 12);
             this.dataGridAppList.Name = "dataGridAppList";
+            this.dataGridAppList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridAppList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridAppList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridAppList.Size = new System.Drawing.Size(536, 354);
-            this.dataGridAppList.TabIndex = 4;
+            this.dataGridAppList.TabIndex = 1;
             // 
             // appNameDataGridViewTextBoxColumn
             // 
@@ -116,6 +120,10 @@
             this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
             this.statusDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // applicationsListBindingSource
+            // 
+            this.applicationsListBindingSource.DataSource = typeof(HistoryBlocker.applicationsList);
+            // 
             // frmIncognito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,9 +135,9 @@
             this.Controls.Add(this.btnLock);
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "frmIncognito";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.applicationsListBindingSource)).EndInit();
+            this.Text = "Incognito";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAppList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.applicationsListBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -28,6 +28,7 @@ namespace HistoryBlocker
         public frmIncognito(applicationsList list)
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.Chrome_Incognito;
             blockerList = list;
             applicationsListBindingSource.DataSource = (IBindingList)blockerList;
             /*listApp.DataSource = applicationsListBindingSource;
