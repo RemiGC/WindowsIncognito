@@ -1,0 +1,17 @@
+﻿<Window x:Class="wpfIncognito.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpfIncognito"
+        mc:Ignorable="d"
+        Title="WindowsIncognito" Height="550" Width="900" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico">
+    <Grid>
+        <DataGrid x:Name="dataGrid" Margin="10,10,10,60"/>
+        <Button x:Name="btnBrowse" Content="_Browse folder" HorizontalAlignment="Left" Margin="10,0,0,10" Width="94" Height="20" VerticalAlignment="Bottom" Click="btnBrowse_Click"/>
+        <Button x:Name="btnUnlock" Content="_Unlock" Margin="0,0,10,10" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnUnlock_Click"/>
+        <Button x:Name="btnLock" Content="_Lock" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnLock_Click"/>
+        <Button x:Name="btnIncognito" Content="_Incognito" HorizontalAlignment="Right" Margin="0,0,170,10" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnIncognito_Click"/>
+
+    </Grid>
+</Window>
