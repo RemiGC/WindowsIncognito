@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Security.Permissions;
-using System.Security;
 using System.IO;
 using System.ComponentModel;
 
 namespace HistoryBlocker
 {
-    public class fileBlocker : INotifyPropertyChanged 
+    public class fileBlocker : INotifyPropertyChanged, IComparable
     {
         struct fileBlockerData
         {
@@ -17,6 +12,7 @@ namespace HistoryBlocker
             internal string msFile;
             internal string fullPath;
             internal bool fileLocked;
+            internal FileInfo fileInfo;
         }
 
         public static string AutomaticDestinationPath = @"Microsoft\Windows\Recent\AutomaticDestinations";
@@ -36,6 +32,7 @@ namespace HistoryBlocker
             fileData.msFile = strAppMsFile;
             fileData.applicationName = strAppName;
             fileData.fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) , AutomaticDestinationPath,  fileData.msFile + Extension);
+            fileData.fileInfo = new FileInfo(fileData.fullPath);
         }
 
         public override string ToString()
@@ -109,6 +106,14 @@ namespace HistoryBlocker
             }
         }
 
+        public DateTime LastModified
+        {
+            get
+            {
+                return fileData.fileInfo.LastAccessTime;
+            }
+        }
+
         public string msName
         {
             get
@@ -145,12 +150,18 @@ namespace HistoryBlocker
         /// <returns></returns>
         private bool InternalEquals(fileBlocker that)
         {
-            return (this.AppName == that.AppName);
+            return (this.msName == that.msName);
         }
 
         public bool IsLocked()
         {
             return fileData.fileLocked;
+        }
+
+        public int CompareTo(object obj)
+        {
+            fileBlocker fb = (fileBlocker)obj;
+            return string.Compare(this.msName, fb.msName);
         }
 
         //#region IEditableObject

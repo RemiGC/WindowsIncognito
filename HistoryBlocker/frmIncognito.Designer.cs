@@ -33,6 +33,7 @@
             this.btnUnlock = new System.Windows.Forms.Button();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.dataGridAppList = new System.Windows.Forms.DataGridView();
+            this.LastModified = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.appNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.msNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,15 +90,24 @@
             this.dataGridAppList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.appNameDataGridViewTextBoxColumn,
             this.msNameDataGridViewTextBoxColumn,
-            this.statusDataGridViewTextBoxColumn});
+            this.statusDataGridViewTextBoxColumn,
+            this.LastModified});
             this.dataGridAppList.DataSource = this.applicationsListBindingSource;
             this.dataGridAppList.Location = new System.Drawing.Point(13, 12);
             this.dataGridAppList.Name = "dataGridAppList";
+            this.dataGridAppList.ReadOnly = true;
             this.dataGridAppList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridAppList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridAppList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridAppList.Size = new System.Drawing.Size(536, 354);
             this.dataGridAppList.TabIndex = 1;
+            // 
+            // LastModified
+            // 
+            this.LastModified.DataPropertyName = "LastModified";
+            this.LastModified.HeaderText = "LastModified";
+            this.LastModified.Name = "LastModified";
+            this.LastModified.ReadOnly = true;
             // 
             // appNameDataGridViewTextBoxColumn
             // 
@@ -152,6 +162,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn appNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn msNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastModified;
     }
 }
 

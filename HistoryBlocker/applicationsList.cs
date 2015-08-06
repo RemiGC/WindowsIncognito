@@ -6,16 +6,18 @@ using System.ComponentModel;
 using System.Collections;
 using System.IO;
 using System.Xml.Linq;
+using System.Collections.ObjectModel;
 
 namespace HistoryBlocker
 {
-    public class applicationsList : CollectionBase, IBindingList
+    public class applicationsList : Collection<fileBlocker>
     {
         private ListChangedEventArgs resetEvent = new ListChangedEventArgs(ListChangedType.Reset, -1);
         private ListChangedEventHandler onListChanged;
+        private bool isSorted;
 
         #region iBindingList and CollectionBase
-        public fileBlocker this[int index]
+        /*public fileBlocker this[int index]
         {
             get
             {
@@ -25,10 +27,11 @@ namespace HistoryBlocker
             {
                 List[index] = value;
             }
-        }
+        }*/
 
         public applicationsList()
         {
+            isSorted = false;
             string pathJumpList = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Microsoft\Windows\Recent\AutomaticDestinations");
             XDocument xdoc = XDocument.Load("AppIDList.xml");
             DirectoryInfo diTop = new DirectoryInfo(pathJumpList);
@@ -40,34 +43,34 @@ namespace HistoryBlocker
                             select application;
                 XElement oneApplication = query.SingleOrDefault();
 
-                if(oneApplication != null)
+                if (oneApplication != null)
                 {
-                    List.Add(new fileBlocker(oneApplication.Element("description").Value.ToString(), oneApplication.Attribute("AppID").Value.ToString()));
+                    this.Add(new fileBlocker(oneApplication.Element("description").Value.ToString(), oneApplication.Attribute("AppID").Value.ToString()));
                 }
                 else
                 {
-                    List.Add(new fileBlocker(Path.GetFileNameWithoutExtension(fileJump.Name), Path.GetFileNameWithoutExtension(fileJump.Name)));
+                    this.Add(new fileBlocker(Path.GetFileNameWithoutExtension(fileJump.Name), Path.GetFileNameWithoutExtension(fileJump.Name)));
                 }
             }
         }
-        
 
-        public int Add (fileBlocker value) 
+
+        /*public int Add (fileBlocker value) 
 		{
             int newIndex = List.Add(value);
             OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded,newIndex));
             return newIndex;
-		}
+		}*/
 
         /*public fileBlocker AddNew()
         {
             return (fileBlocker)((IBindingList)this).AddNew();
         }*/
 
-        public void Remove(fileBlocker value)
+        /*public void Remove(fileBlocker value)
         {
             List.Remove(value);
-        }
+        }*/
 
         protected virtual void OnListChanged(ListChangedEventArgs ev)
         {
@@ -77,7 +80,7 @@ namespace HistoryBlocker
             }
         }
 
-        protected override void OnClear()
+        /*protected override void OnClear()
         {
             foreach (fileBlocker c in List)
             {
@@ -87,53 +90,53 @@ namespace HistoryBlocker
                 }
                 c.Parent = null;
             }
-        }
+        }*/
 
-        protected override void OnClearComplete()
-        {
-            OnListChanged(resetEvent);
-        }
+        /* protected override void OnClearComplete()
+         {
+             OnListChanged(resetEvent);
+         }
 
-        protected override void OnInsertComplete(int index, object value)
-        {
-            fileBlocker c = (fileBlocker)value;
-            c.Parent = this;
-            OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded, index));
-        }
+         protected override void OnInsertComplete(int index, object value)
+         {
+             fileBlocker c = (fileBlocker)value;
+             c.Parent = this;
+             OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded, index));
+         }
 
-        protected override void OnRemoveComplete(int index, object value)
-        {
-            fileBlocker c = (fileBlocker)value;
-            c.Parent = this;
-            OnListChanged(new ListChangedEventArgs(ListChangedType.ItemDeleted, index));
-        }
+         protected override void OnRemoveComplete(int index, object value)
+         {
+             fileBlocker c = (fileBlocker)value;
+             c.Parent = this;
+             OnListChanged(new ListChangedEventArgs(ListChangedType.ItemDeleted, index));
+         }
 
-        protected override void OnSetComplete(int index, object oldValue, object newValue)
-        {
-            if (oldValue != newValue)
-            {
+         protected override void OnSetComplete(int index, object oldValue, object newValue)
+         {
+             if (oldValue != newValue)
+             {
 
-                fileBlocker oldcust = (fileBlocker)oldValue;
-                fileBlocker newcust = (fileBlocker)newValue;
+                 fileBlocker oldcust = (fileBlocker)oldValue;
+                 fileBlocker newcust = (fileBlocker)newValue;
 
-                oldcust.Parent = null;
-                newcust.Parent = this;
+                 oldcust.Parent = null;
+                 newcust.Parent = this;
 
 
-                OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded, index));
-            }
-        }
+                 OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded, index));
+             }
+         }*/
 
         // Called by fileBlocker when it changes.
         internal void fileBlockerChanged(fileBlocker blocker)
         {
 
-            int index = List.IndexOf(blocker);
+            int index = this.IndexOf(blocker);
             OnListChanged(new ListChangedEventArgs(ListChangedType.ItemChanged, index));
         }
 
         // Implements IBindingList.
-        bool IBindingList.AllowEdit
+        /*bool IBindingList.AllowEdit
         {
             get { return false; }
         }
@@ -160,9 +163,9 @@ namespace HistoryBlocker
 
         bool IBindingList.SupportsSorting
         {
-            get { return false; }
+            get { return true; }
         }
-
+        */
         // Events.
         public event ListChangedEventHandler ListChanged
         {
@@ -177,18 +180,21 @@ namespace HistoryBlocker
         }
 
         // Methods.
-        object IBindingList.AddNew()
+        /*object IBindingList.AddNew()
         {
             /*fileBlocker c = new fileBlocker(this.);
             List.Add(c);
             return c;*/
-            throw new NotSupportedException();
+        /*throw new NotSupportedException();
         }
-
+    
         // Unsupported properties.
         bool IBindingList.IsSorted
         {
-            get { throw new NotSupportedException(); }
+            get
+            {
+                return isSorted;
+            }
         }
 
         ListSortDirection IBindingList.SortDirection
@@ -210,14 +216,14 @@ namespace HistoryBlocker
 
         void IBindingList.ApplySort(PropertyDescriptor property, ListSortDirection direction)
         {
-            throw new NotSupportedException();
+            Console.WriteLine("test");
         }
 
         int IBindingList.Find(PropertyDescriptor property, object key)
         {
             for (int i = 0; i < Count; ++i)
             {
-                if (((fileBlocker)List[i]).AppName == ((string)key))
+                if (((fileBlocker)List[i]).msName == ((string)key))
                     return i;
             }
             return -1;
@@ -231,9 +237,9 @@ namespace HistoryBlocker
         void IBindingList.RemoveSort()
         {
             throw new NotSupportedException();
-        }
+        }*/
 
-        #endregion
+    #endregion
 
     }
 }

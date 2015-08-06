@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace HistoryBlocker
@@ -30,7 +24,7 @@ namespace HistoryBlocker
             InitializeComponent();
             this.Icon = Properties.Resources.Chrome_Incognito;
             blockerList = list;
-            applicationsListBindingSource.DataSource = (IBindingList)blockerList;
+            applicationsListBindingSource.DataSource = blockerList;
             /*listApp.DataSource = applicationsListBindingSource;
             listApp.DisplayMember = "Status";*/
         }
