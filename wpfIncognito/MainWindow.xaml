@@ -2,11 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"  
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpfIncognito"
         xmlns:p="clr-namespace:wpfIncognito.Properties"
         mc:Ignorable="d"
-        Title="WindowsIncognito" Width="600" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" Closed="Window_Closed" SizeToContent="Height" ResizeMode="NoResize">
+        Title="Windows Incognito" Width="600" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" Closed="Window_Closed" SizeToContent="Height" ResizeMode="CanMinimize">
     <Grid Margin="0,0,0,0">
 
         <Button x:Name="btnBrowse" Content="_Browse folder" Margin="10,10,0,0" Click="btnBrowse_Click" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="94"/>
@@ -15,7 +16,13 @@
         <Button x:Name="btnIncognito" Content="_Incognito" HorizontalAlignment="Right" Margin="0,10,167,0" Width="75" Click="btnIncognito_Click" Height="20" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox" Content="Auto Lock on Startup" Margin="0,10,247,0" IsChecked="{Binding Source={x:Static p:Settings.Default},Path=lockOnStartup, Mode=OneWay}" HorizontalAlignment="Right" Width="141" Height="20" VerticalAlignment="Top"/>
         <Expander x:Name="expander" Header="Show Detail" Margin="0,33,0,0" ExpandDirection="Down">
-            <DataGrid x:Name="dataGrid" Margin="0,0,0,0" MaxHeight="500" />
+            <DataGrid x:Name="dataGrid" Margin="0,0,0,0" MaxHeight="500" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="App Name" Width="*" Binding="{Binding Path=AppName}" />
+                    <DataGridTextColumn Header="AppID" Width="*" Binding="{Binding Path=AppID}" />
+                    <DataGridTextColumn Header="Last Modified" Width="*" Binding="{Binding Path=LastModified}" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Expander>
     </Grid>
 
