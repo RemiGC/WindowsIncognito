@@ -40,11 +40,19 @@ namespace wpfIncognito
             dataGrid.ItemsSource = fileBlockerList;
             //lblTotalNumberFiles.DataContext = fileBlockerList.Count;
             folderWatcher = new FolderWatcher(fileBlockerList);
-            if(Properties.Settings.Default.lockOnStartup)
+            if(Properties.Settings.Default.lockOnStartup != allIncognito )
             {
-                if (!allIncognito)
+                SwitchIncognito();
+            }
+            else
+            {
+                if (allIncognito)
                 {
-                    SwitchIncognito();
+                    btnIncognito.Content = "Unlock _All";
+                }
+                else
+                {
+                    btnIncognito.Content = "Lock _All";
                 }
             }
         }
@@ -141,6 +149,11 @@ namespace wpfIncognito
             serializer.Serialize(textWriter, fileBlockerList);
             textWriter.Close();
             Properties.Settings.Default.Save();
+        }
+
+        private void cbAutoLock_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.lockOnStartup = (bool)cbAutoLock.IsChecked;
         }
     }
 }
