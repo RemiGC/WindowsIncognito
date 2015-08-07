@@ -4,14 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpfIncognito"
+        xmlns:p="clr-namespace:wpfIncognito.Properties"
         mc:Ignorable="d"
-        Title="WindowsIncognito" Height="550" Width="900" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" Closed="Window_Closed">
+        Title="WindowsIncognito" Height="569.333" Width="900" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" Closed="Window_Closed">
     <Grid>
-        <DataGrid x:Name="dataGrid" Margin="10,10,10,60"/>
-        <Button x:Name="btnBrowse" Content="_Browse folder" HorizontalAlignment="Left" Margin="10,0,0,10" Width="94" Height="20" VerticalAlignment="Bottom" Click="btnBrowse_Click"/>
-        <Button x:Name="btnUnlock" Content="_Unlock" Margin="0,0,10,10" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnUnlock_Click"/>
-        <Button x:Name="btnLock" Content="_Lock" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnLock_Click"/>
-        <Button x:Name="btnIncognito" Content="_Incognito" HorizontalAlignment="Right" Margin="0,0,170,10" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnIncognito_Click"/>
-
+        <DataGrid x:Name="dataGrid" Margin="10,10,10,80"/>
+        <Button x:Name="btnBrowse" Content="_Browse folder" HorizontalAlignment="Left" Margin="10,0,0,35" Width="94" Height="20" VerticalAlignment="Bottom" Click="btnBrowse_Click"/>
+        <Button x:Name="btnUnlock" Content="_Unlock" Margin="0,0,10,35" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnUnlock_Click"/>
+        <Button x:Name="btnLock" Content="_Lock" HorizontalAlignment="Right" Margin="0,0,90,35" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnLock_Click"/>
+        <Button x:Name="btnIncognito" Content="_Incognito" HorizontalAlignment="Right" Margin="0,0,170,35" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnIncognito_Click"/>
+        <CheckBox x:Name="checkBox" Content="Auto Lock on Startup" HorizontalAlignment="Left" Margin="487,486,0,0" VerticalAlignment="Top" Width="155" IsChecked="{Binding Source={x:Static p:Settings.Default},Path=lockOnStartup, Mode=OneWay}">
+        </CheckBox>
+        <!--<StatusBar Height="30" VerticalAlignment="Bottom" Margin="0,0,0,0" >
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="120" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <Label Content="Number of Files: " />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Name="lblTotalNumberFiles" Text="{Binding Path=fileBlockerList.Count}"/>
+            </StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Text="c:\path\of\current\file.txt" />
+            </StatusBarItem>
+            <Separator Grid.Column="3" />
+        </StatusBar>
+-->
     </Grid>
 </Window>

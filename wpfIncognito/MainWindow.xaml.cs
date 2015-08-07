@@ -3,9 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.IO;
-using System.Windows.Shapes;
-using System.Threading;
-using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace wpfIncognito
@@ -41,7 +38,15 @@ namespace wpfIncognito
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {  
             dataGrid.ItemsSource = fileBlockerList;
+            //lblTotalNumberFiles.DataContext = fileBlockerList.Count;
             folderWatcher = new FolderWatcher(fileBlockerList);
+            if(Properties.Settings.Default.lockOnStartup)
+            {
+                if (!allIncognito)
+                {
+                    SwitchIncognito();
+                }
+            }
         }
         #endregion
 
@@ -141,6 +146,7 @@ namespace wpfIncognito
             TextWriter textWriter = new StreamWriter("applist.xml");
             serializer.Serialize(textWriter, fileBlockerList);
             textWriter.Close();
+            Properties.Settings.Default.Save();
         }
     }
 }

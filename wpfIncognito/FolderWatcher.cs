@@ -31,9 +31,7 @@ namespace wpfIncognito
 
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            string name = Path.GetFileNameWithoutExtension(e.Name);
-
-            var currentFile = fileBlockerList.Single(i => i.FileName == name);
+            var currentFile = fileBlockerList.Single(i => i.FileName.Equals(e.Name,StringComparison.InvariantCultureIgnoreCase));
             currentFile.ReCheckFileInfo();
         }
     }

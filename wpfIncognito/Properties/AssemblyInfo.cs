@@ -7,10 +7,10 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("wpfIncognito")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Incognito")]
+[assembly: AssemblyDescription("Block file history on your computer")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("KRCSoftware")]
 [assembly: AssemblyProduct("wpfIncognito")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]

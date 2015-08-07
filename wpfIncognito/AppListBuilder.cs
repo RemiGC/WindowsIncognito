@@ -50,7 +50,7 @@ namespace wpfIncognito
 
             foreach (FileInfo fileJump in diTop.EnumerateFiles("*.automaticDestinations-ms"))
             {
-                bool fileAlreadyPresent = appList.Any(f => f.FileName == fileJump.Name);
+                bool fileAlreadyPresent = appList.Any(f => f.FileName.Equals(fileJump.Name,StringComparison.CurrentCultureIgnoreCase));
                 if (!fileAlreadyPresent)
                 {
                     var query = from application in xdoc.Element("applications").Elements("application")
