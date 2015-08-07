@@ -83,11 +83,11 @@ namespace wpfIncognito
 
             if(allIncognito)
             {
-                btnIncognito.Content = "Un_incognito";
+                btnIncognito.Content = "Unlock _All";
             }
             else
             {
-                btnIncognito.Content = "_Incognito";
+                btnIncognito.Content = "Lock _All";
             }
         }
 
@@ -136,12 +136,6 @@ namespace wpfIncognito
 
         private void Window_Closed(object sender, EventArgs e)
         {
-           /* XmlSerializer serializer = new XmlSerializer(fileBlockerList.GetType());
-            using (StreamWriter writer = new StreamWriter("applist.xml"))
-            {
-                serializer.Serialize(writer, fileBlockerList);
-            }*/
-
             XmlSerializer serializer = new XmlSerializer(typeof(Collection<fileBlocker>));
             TextWriter textWriter = new StreamWriter("applist.xml");
             serializer.Serialize(textWriter, fileBlockerList);
