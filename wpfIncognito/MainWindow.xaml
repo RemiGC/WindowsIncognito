@@ -7,22 +7,23 @@
         xmlns:local="clr-namespace:wpfIncognito"
         xmlns:p="clr-namespace:wpfIncognito.Properties"
         mc:Ignorable="d"
-        Title="Windows Incognito" Width="600" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" Closed="Window_Closed" SizeToContent="Height" ResizeMode="CanMinimize">
-    <Grid Margin="0,0,0,0">
+        Title="Windows Incognito" Width="600" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" Closed="Window_Closed" SizeToContent="Height" ResizeMode="CanMinimize" Height="86">
+    <Grid Margin="0,0,0,0" >
 
-        <Button x:Name="btnBrowse" Content="_Browse folder" Margin="10,10,0,0" Click="btnBrowse_Click" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="94"/>
+        <Button x:Name="btnBrowse" Content="_Browse folder" Margin="10,10,0,0" Click="btnBrowse_Click" HorizontalAlignment="Left" Width="94" Height="20" VerticalAlignment="Top"/>
         <Button x:Name="btnUnlock" Content="_Unlock" Margin="0,10,10,0" HorizontalAlignment="Right" Width="75" Click="btnUnlock_Click" Height="20" VerticalAlignment="Top"/>
         <Button x:Name="btnLock" Content="_Lock" HorizontalAlignment="Right" Margin="0,10,87,0" Width="75" Click="btnLock_Click" Height="20" VerticalAlignment="Top"/>
         <Button x:Name="btnIncognito" Content="_Incognito" HorizontalAlignment="Right" Margin="0,10,167,0" Width="75" Click="btnIncognito_Click" Height="20" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox" Content="Auto Lock on Startup" Margin="0,10,247,0" IsChecked="{Binding Source={x:Static p:Settings.Default},Path=lockOnStartup, Mode=OneWay}" HorizontalAlignment="Right" Width="141" Height="20" VerticalAlignment="Top"/>
         <Expander x:Name="expander" Header="Show Detail" Margin="0,33,0,0" ExpandDirection="Down">
-            <DataGrid x:Name="dataGrid" Margin="0,0,0,0" MaxHeight="500" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="App Name" Width="*" Binding="{Binding Path=AppName}" />
-                    <DataGridTextColumn Header="AppID" Width="*" Binding="{Binding Path=AppID}" />
-                    <DataGridTextColumn Header="Last Modified" Width="*" Binding="{Binding Path=LastModified}" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <DataGrid x:Name="dataGrid" Margin="0,0,0,0" MaxWidth="600" AutoGenerateColumns="False" Height="400" VerticalAlignment="Bottom" RowStyle="{DynamicResource DataGridRowStyle}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Status" Width="60" Binding="{Binding Path=Status}" IsReadOnly="True" />
+                <DataGridTextColumn Header="App Name" Width="*" Binding="{Binding Path=AppName}"/>
+                <DataGridTextColumn Header="AppID" Width="120" Binding="{Binding Path=AppIDHexa}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Last Modified" Width="130" Binding="{Binding Path=LastModified}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
         </Expander>
     </Grid>
 

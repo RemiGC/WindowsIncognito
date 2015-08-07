@@ -68,6 +68,14 @@ namespace wpfIncognito
             return AppID.ToString("X");
         }
 
+        public string AppIDHexa
+        {
+            get
+            {
+                return AppID.ToString("X");
+            }
+        }
+
         public void ReCheckFileInfo()
         {
             if (fileInfo != null)
