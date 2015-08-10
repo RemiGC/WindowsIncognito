@@ -3,7 +3,7 @@ using System.IO;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace wpfIncognito
+namespace wpfIncognito.Model
 {
     [Serializable()]
     public class fileBlocker : INotifyPropertyChanged
@@ -133,7 +133,7 @@ namespace wpfIncognito
         {
             get
             {
-                if (IsLocked())
+                if (IsLocked)
                 {
                     return "Locked";
                 }
@@ -204,9 +204,12 @@ namespace wpfIncognito
             return AppID.GetHashCode();
         }
 
-        public bool IsLocked()
+        public bool IsLocked
         {
-            return fileLocked;
+            get
+            {
+                return fileLocked;
+            }
         }
     }
 }

@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using wpfIncognito.Model;
 
-namespace wpfIncognito
+namespace wpfIncognito.DataAccess
 {
-    class AppListBuilder
+    public class SoftwareRepository
     {
-        public static Collection<fileBlocker> GetAppList()
-        {
-            Collection<fileBlocker> appList;
+        readonly List<fileBlocker> appList;
 
+        public SoftwareRepository()
+        {
             //Deserialize own xml
             if (File.Exists("applist.xml"))
             {
-                XmlSerializer deserializer = new XmlSerializer(typeof(Collection<fileBlocker>));
+                XmlSerializer deserializer = new XmlSerializer(typeof(List<fileBlocker>));
                 TextReader reader = new StreamReader("applist.xml");
                 object obj = deserializer.Deserialize(reader);
-                appList = (Collection<fileBlocker>)obj;
+                appList = (List<fileBlocker>)obj;
                 reader.Close();
 
 
@@ -41,7 +40,7 @@ namespace wpfIncognito
             }
             else
             {
-                appList = new Collection<fileBlocker>();
+                appList = new List<fileBlocker>();
             }
 
             string pathJumpList = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Microsoft\Windows\Recent\AutomaticDestinations");
@@ -50,7 +49,7 @@ namespace wpfIncognito
 
             foreach (FileInfo fileJump in diTop.EnumerateFiles("*.automaticDestinations-ms"))
             {
-                bool fileAlreadyPresent = appList.Any(f => f.FileName.Equals(fileJump.Name,StringComparison.CurrentCultureIgnoreCase));
+                bool fileAlreadyPresent = appList.Any(f => f.FileName.Equals(fileJump.Name, StringComparison.CurrentCultureIgnoreCase));
                 if (!fileAlreadyPresent)
                 {
                     var query = from application in xdoc.Element("applications").Elements("application")
@@ -68,8 +67,11 @@ namespace wpfIncognito
                     }
                 }
             }
+        }
 
-            return appList;
+        public List<fileBlocker> GetSoftwares()
+        {
+            return new List<fileBlocker>(appList);
         }
     }
 }
