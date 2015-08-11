@@ -11,24 +11,15 @@ namespace wpfIncognito.ViewModel
     public class MainWindowViewModel
     {
         SoftwareRepository _softwareRepository;
-        ObservableCollection<ViewModelBase> _viewModels;
+
+        public IncognitoViewModel Incognito { get; private set; }
+        public SoftwareListViewModel SoftwareList { get; private set; }
 
         public MainWindowViewModel()
         {
             _softwareRepository = new SoftwareRepository();
-
-            SoftwareListViewModel viewModel = new SoftwareListViewModel(_softwareRepository);
-            this.ViewModels.Add(viewModel);
-        }
-
-        public ObservableCollection<ViewModelBase> ViewModels
-        {
-            get
-            {
-                if (_viewModels == null) _viewModels = new ObservableCollection<ViewModelBase>();
-
-                return _viewModels;
-            }
+            this.SoftwareList = new SoftwareListViewModel(_softwareRepository);
+            this.Incognito = new IncognitoViewModel(_softwareRepository);
         }
     }
 }

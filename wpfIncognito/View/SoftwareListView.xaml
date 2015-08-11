@@ -5,19 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:wpfIncognito.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
-        <ItemsControl ItemsSource="{Binding AllSoftwares}">
-            <ItemsControl.ItemTemplate >
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox Width="100" Text="{Binding Status,Mode=OneWay}" />
-                        <TextBox Width="100" Text="{Binding AppIDHexa,Mode=OneWay}" />
-                        <TextBox Width="100" Text="{Binding FileName,Mode=OneWay}" />
-                        <TextBox Width="100" Text="{Binding AppName}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+             d:DesignHeight="300" Width="600">
+        <DataGrid x:Name="dataGrid" Margin="0,0,0,0" ItemsSource="{Binding AllSoftwares}" AutoGenerateColumns="False" HorizontalAlignment="Stretch" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Status" Width="60" Binding="{Binding Path=Status}" IsReadOnly="True" />
+                <DataGridTextColumn Header="App Name" Width="*" Binding="{Binding Path=AppName}"/>
+                <DataGridTextColumn Header="AppID" Width="120" Binding="{Binding Path=AppIDHexa}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Last Modified" Width="130" Binding="{Binding Path=LastModified}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
 </UserControl>

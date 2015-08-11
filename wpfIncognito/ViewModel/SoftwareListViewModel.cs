@@ -14,9 +14,8 @@ namespace wpfIncognito.ViewModel
     {
         SoftwareRepository _softwareRepository;
 
-        bool isIncognito;
-        RelayCommand _IncognitoOnCommand;
-        RelayCommand _IncognitoOffCommand;
+        RelayCommand _LockSoftware;
+        RelayCommand _UnLockSoftware;
 
         public ObservableCollection<fileBlocker> AllSoftwares
         {
@@ -26,7 +25,6 @@ namespace wpfIncognito.ViewModel
 
         public SoftwareListViewModel(SoftwareRepository softwareRepository)
         {
-            isIncognito = false;
             if(softwareRepository == null)
             {
                 throw new ArgumentNullException("softwareRepository");
@@ -40,74 +38,32 @@ namespace wpfIncognito.ViewModel
             this.AllSoftwares.Clear();
         }
 
-        #region All Incognito on/off Command
-        public ICommand IncognitoOnCommand
+        #region Lock/Unlock one software
+        public ICommand LockCommand
         {
             get
             {
-                if(_IncognitoOnCommand == null)
+                if (_LockSoftware == null)
                 {
-                    _IncognitoOnCommand = new RelayCommand(p => this.IncognitoOnExecute(), p => this.IncognitoOnCanExecute);
+                    _LockSoftware = new RelayCommand(p => this.LockExecute(), p => this.LockCanExecute());
 
                 }
-                return _IncognitoOnCommand;
+                return _LockSoftware;
             }
         }
 
-        void IncognitoOnExecute()
+        void LockExecute()
         {
-            // TODO ADD exception
-            foreach(fileBlocker fb in AllSoftwares)
-            {
-                if(!fb.IsLocked)
-                {
-                    fb.Lock();
-                }
-            }
-            isIncognito = true;
+            //fb.Lock();
+            throw new NotImplementedException();
         }
 
-        bool IncognitoOnCanExecute
+        bool LockCanExecute()
         {
-            get
-            {
-                return AllSoftwares.Any(fb => fb.IsLocked == false);
-            }
+            //return !fb.IsLocked;
+            throw new NotImplementedException();
         }
 
-        public ICommand IncognitoOffCommand
-        {
-            get
-            {
-                if (_IncognitoOffCommand == null)
-                {
-                    _IncognitoOffCommand = new RelayCommand(p => this.IncognitoOffExecute(), p => this.IncognitoOffCanExecute);
-
-                }
-                return _IncognitoOffCommand;
-            }
-        }
-
-        void IncognitoOffExecute()
-        {
-            // TODO ADD exception
-            foreach (fileBlocker fb in AllSoftwares)
-            {
-                if (fb.IsLocked)
-                {
-                    fb.Unlock();
-                }
-            }
-            isIncognito = true;
-        }
-
-        bool IncognitoOffCanExecute
-        {
-            get
-            {
-                return AllSoftwares.Any(fb => fb.IsLocked == true);
-            }
-        }
         #endregion
     }
 }
