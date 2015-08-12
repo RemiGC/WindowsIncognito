@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:wpfIncognito"
         xmlns:p="clr-namespace:wpfIncognito.Properties"
         mc:Ignorable="d"
-        Title="Windows Incognito" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" Height="448" Width="934.5" >
+        Title="Windows Incognito" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" MinWidth="640" Height="180" Width="640"  SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" >
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:SoftwareListViewModel}">
@@ -24,15 +24,27 @@
 
     <Grid Margin="4">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="100">
+            </RowDefinition>
+            <RowDefinition >
+                <RowDefinition.Style>
+                    <Style TargetType="RowDefinition">
+                        <Setter Property="Height" Value="40" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsExpanded, ElementName=AllSoftwareExpander}" Value="True">
+                                <Setter Property="Height" Value="500" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RowDefinition.Style>
+            </RowDefinition>
         </Grid.RowDefinitions>
         <Border Background="GhostWhite" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Grid.Row="0" Margin="5">
-            <UserControl Content="{Binding Path=Incognito}" ></UserControl>
+            <UserControl Content="{Binding Path=Incognito}" Margin="5"></UserControl>
         </Border>
         <Border Background="GhostWhite" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Grid.Row="1"  Margin="5">
-            <Expander Header="Show All Software">
-                <UserControl Content="{Binding Path=.SoftwareList}" HorizontalContentAlignment="Stretch"></UserControl>
+            <Expander Header="Show All Software" Name="AllSoftwareExpander" Collapsed="AllSoftwareExpander_Collapsed" >
+                <UserControl Content="{Binding Path=.SoftwareList}" MinHeight="200" MinWidth="200" HorizontalContentAlignment="Stretch" Margin="5"></UserControl>
             </Expander>
         </Border>
     </Grid>

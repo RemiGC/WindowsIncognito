@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.IO;
 using System.Xml.Serialization;
+using System.Windows.Controls;
 
 namespace wpfIncognito
 {
@@ -15,6 +16,11 @@ namespace wpfIncognito
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void AllSoftwareExpander_Collapsed(object sender, RoutedEventArgs e)
+        {
+            this.Height = ((Expander)sender).ActualHeight - 20;
         }
     }
 }
