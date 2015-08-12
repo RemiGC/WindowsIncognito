@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using wpfIncognito.DataAccess;
+﻿using wpfIncognito.DataAccess;
+using wpfIncognito.Model;
 
 namespace wpfIncognito.ViewModel
 {
     public class MainWindowViewModel
     {
         SoftwareRepository _softwareRepository;
+        IncognitoSettings _incognitoSettings;
 
         public IncognitoViewModel Incognito { get; private set; }
         public SoftwareListViewModel SoftwareList { get; private set; }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IncognitoSettings settings)
         {
             _softwareRepository = new SoftwareRepository();
-            this.SoftwareList = new SoftwareListViewModel(_softwareRepository);
-            this.Incognito = new IncognitoViewModel(_softwareRepository);
+            _incognitoSettings = settings;
+            this.SoftwareList = new SoftwareListViewModel(_softwareRepository, _incognitoSettings);
+            this.Incognito = new IncognitoViewModel(_softwareRepository, _incognitoSettings);
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SettingsProviderNet;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using wpfIncognito.Model;
 using wpfIncognito.ViewModel;
 
 namespace wpfIncognito
@@ -14,14 +15,25 @@ namespace wpfIncognito
     /// </summary>
     public partial class App : Application
     {
+        private IncognitoSettings appSettings;
+        private SettingsProvider settingsProvider;
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            //settingsProvider = new SettingsProvider(new RoamingAppDataStorage("WindowsIncognito"));
+            settingsProvider = new SettingsProvider();
+            appSettings = settingsProvider.GetSettings<IncognitoSettings>();
 
             MainWindow mw = new MainWindow();
-            var viewModel = new MainWindowViewModel();
+            var viewModel = new MainWindowViewModel(appSettings);
             mw.DataContext = viewModel;
             mw.Show();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            settingsProvider.SaveSettings(appSettings);
         }
     }
 }

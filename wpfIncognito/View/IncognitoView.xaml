@@ -22,6 +22,6 @@
 
         <Button Content="Incognito ON" Command="{Binding IncognitoOnCommand }" Grid.Row="0" Grid.Column="1" />
         <Button Content="Incognito OFF" Command="{Binding IncognitoOffCommand }" Grid.Row="1" Grid.Column="1" />
-        <Image x:Name="image" Grid.Column="0" Grid.RowSpan="2" Style="{DynamicResource ImageIncognito}" />
+        <Image x:Name="image" Grid.Column="0" Grid.RowSpan="2" Style="{DynamicResource ImageIncognito}" Margin="10,10,10,-38" />
     </Grid>
 </UserControl>

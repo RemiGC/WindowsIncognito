@@ -11,6 +11,7 @@ namespace wpfIncognito.ViewModel
     public class IncognitoViewModel:ViewModelBase , INotifyPropertyChanged
     {
         SoftwareRepository _softwareRepository;
+        IncognitoSettings _incognitoSettings;
         bool isIncognito;
         RelayCommand _IncognitoOnCommand;
         RelayCommand _IncognitoOffCommand;
@@ -21,15 +22,22 @@ namespace wpfIncognito.ViewModel
             set;
         }
 
-        public IncognitoViewModel(SoftwareRepository softwareRepository)
+        public IncognitoViewModel(SoftwareRepository softwareRepository, IncognitoSettings settings)
         {
-            isIncognito = false;
             if (softwareRepository == null)
             {
                 throw new ArgumentNullException("softwareRepository");
             }
             this._softwareRepository = softwareRepository;
             this.AllSoftwares = new ObservableCollection<fileBlocker>(softwareRepository.GetSoftwares());
+            this._incognitoSettings = settings;
+            if(_incognitoSettings.LockOnStartup)
+            {
+                IncognitoOnExecute();
+            } else
+            {
+                IncognitoOffExecute();
+            }
         }
 
         protected override void OnDispose()

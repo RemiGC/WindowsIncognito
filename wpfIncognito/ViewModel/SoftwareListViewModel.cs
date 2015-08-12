@@ -13,6 +13,7 @@ namespace wpfIncognito.ViewModel
     public class SoftwareListViewModel:ViewModelBase
     {
         SoftwareRepository _softwareRepository;
+        IncognitoSettings _settings;
 
         RelayCommand _LockSoftware;
         RelayCommand _UnLockSoftware;
@@ -23,7 +24,7 @@ namespace wpfIncognito.ViewModel
             set;
         }
 
-        public SoftwareListViewModel(SoftwareRepository softwareRepository)
+        public SoftwareListViewModel(SoftwareRepository softwareRepository, IncognitoSettings settings)
         {
             if(softwareRepository == null)
             {
