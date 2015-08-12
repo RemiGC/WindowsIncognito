@@ -3,13 +3,8 @@ using System.ComponentModel;
 
 namespace wpfIncognito.ViewModel
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        protected ViewModelBase()
-        {
-
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
@@ -20,16 +15,6 @@ namespace wpfIncognito.ViewModel
                 var e = new PropertyChangedEventArgs(propertyName);
                 handler(this, e);
             }
-        }
-
-        public void Dispose()
-        {
-            this.OnDispose();
-        }
-
-        protected virtual void OnDispose()
-        {
-
         }
     }
 }

@@ -34,11 +34,6 @@ namespace wpfIncognito.ViewModel
             this.AllSoftwares = new ObservableCollection<fileBlocker>(softwareRepository.GetSoftwares());
         }
 
-        protected override void OnDispose()
-        {
-            this.AllSoftwares.Clear();
-        }
-
         #region Lock/Unlock one software
         public ICommand LockCommand
         {

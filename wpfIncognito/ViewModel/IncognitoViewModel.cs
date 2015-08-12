@@ -40,11 +40,6 @@ namespace wpfIncognito.ViewModel
             }
         }
 
-        protected override void OnDispose()
-        {
-            this.AllSoftwares.Clear();
-        }
-
         public bool IsIncognitoModeOn
         {
             get

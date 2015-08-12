@@ -3,7 +3,7 @@ using wpfIncognito.Model;
 
 namespace wpfIncognito.ViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : ViewModelBase
     {
         SoftwareRepository _softwareRepository;
         IncognitoSettings _incognitoSettings;

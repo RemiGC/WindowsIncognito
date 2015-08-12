@@ -20,8 +20,7 @@ namespace wpfIncognito
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            //settingsProvider = new SettingsProvider(new RoamingAppDataStorage("WindowsIncognito"));
-            settingsProvider = new SettingsProvider();
+            settingsProvider = new SettingsProvider(new LocalAppDataStorage("WindowsIncognito"));
             appSettings = settingsProvider.GetSettings<IncognitoSettings>();
 
             MainWindow mw = new MainWindow();
