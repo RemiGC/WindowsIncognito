@@ -2,6 +2,7 @@
 using System.IO;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Windows;
 
 namespace wpfIncognito.Model
 {
@@ -111,7 +112,15 @@ namespace wpfIncognito.Model
         {
             if (!fileLocked)
             {
-                fileStream = new FileStream(FullPath, FileMode.Open, FileAccess.Write);
+                try
+                {
+                    fileStream = new FileStream(FullPath, FileMode.Open, FileAccess.Write);
+                }
+                catch (Exception e)
+                {
+                    //Catch the exception to prevent further progression
+                }
+
                 if (fileStream != null)
                 {
                     fileLocked = true;

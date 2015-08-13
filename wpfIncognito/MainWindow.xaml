@@ -9,6 +9,7 @@
         xmlns:local="clr-namespace:wpfIncognito"
         xmlns:p="clr-namespace:wpfIncognito.Properties"
         mc:Ignorable="d"
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
         Title="Windows Incognito" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" MinWidth="640" Height="180" Width="640"  SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" >
 
     <Window.Resources>

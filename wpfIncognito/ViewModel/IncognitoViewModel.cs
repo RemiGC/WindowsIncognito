@@ -1,7 +1,9 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using wpfIncognito.DataAccess;
 using wpfIncognito.Model;
@@ -64,16 +66,22 @@ namespace wpfIncognito.ViewModel
 
         void IncognitoOnExecute()
         {
-            // TODO ADD exception
+            bool allLocked = true;
             foreach (fileBlocker fb in AllSoftwares)
             {
-                if (!fb.IsLocked)
+                if(!fb.Lock())
                 {
-                    fb.Lock();
+                    allLocked = false;
                 }
             }
+
+            if(!allLocked)
+            {
+                MessageBox.Show("Impossible to activate incognito mode for all software\nCheck the status column in all software for more details");
+            }
+            
             isIncognito = true;
-            OnPropertyChanged("IsIncognitoModeOn");
+            RaisePropertyChanged("IsIncognitoModeOn");
         }
 
         bool IncognitoOnCanExecute
@@ -99,7 +107,6 @@ namespace wpfIncognito.ViewModel
 
         void IncognitoOffExecute()
         {
-            // TODO ADD exception
             foreach (fileBlocker fb in AllSoftwares)
             {
                 if (fb.IsLocked)
@@ -108,7 +115,7 @@ namespace wpfIncognito.ViewModel
                 }
             }
             isIncognito = false;
-            OnPropertyChanged("IsIncognitoModeOn");
+            RaisePropertyChanged("IsIncognitoModeOn");
         }
 
         bool IncognitoOffCanExecute

@@ -1,5 +1,7 @@
-﻿using wpfIncognito.DataAccess;
+﻿using GalaSoft.MvvmLight;
+using wpfIncognito.DataAccess;
 using wpfIncognito.Model;
+
 
 namespace wpfIncognito.ViewModel
 {
