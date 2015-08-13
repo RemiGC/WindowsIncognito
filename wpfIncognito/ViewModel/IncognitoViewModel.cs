@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,13 +11,13 @@ using wpfIncognito.Model;
 
 namespace wpfIncognito.ViewModel
 {
-    public class IncognitoViewModel:ViewModelBase , INotifyPropertyChanged
+    public class IncognitoViewModel:ViewModelBase
     {
         SoftwareRepository _softwareRepository;
         IncognitoSettings _incognitoSettings;
         bool isIncognito;
-        RelayCommand _IncognitoOnCommand;
-        RelayCommand _IncognitoOffCommand;
+        public RelayCommand IncognitoOnCommand { get; private set; }
+        public RelayCommand IncognitoOffCommand { get; private set; }
 
         public ObservableCollection<fileBlocker> AllSoftwares
         {
@@ -40,6 +41,10 @@ namespace wpfIncognito.ViewModel
             {
                 IncognitoOffExecute();
             }
+
+            IncognitoOnCommand = new RelayCommand(IncognitoOnExecute, () => IncognitoOnCanExecute);
+            IncognitoOffCommand = new RelayCommand(IncognitoOffExecute, () => IncognitoOffCanExecute);
+
         }
 
         public bool IsIncognitoModeOn
@@ -51,18 +56,18 @@ namespace wpfIncognito.ViewModel
         }
 
         #region All Incognito on/off Command
-        public ICommand IncognitoOnCommand
+        /*public ICommand IncognitoOnCommand
         {
             get
             {
                 if (_IncognitoOnCommand == null)
                 {
-                    _IncognitoOnCommand = new RelayCommand(p => this.IncognitoOnExecute(), p => this.IncognitoOnCanExecute);
+                    _IncognitoOnCommand = new RelayCommand(IncognitoOnExecute, () => IncognitoOnCanExecute);
 
                 }
                 return _IncognitoOnCommand;
             }
-        }
+        }*/
 
         void IncognitoOnExecute()
         {
@@ -92,18 +97,18 @@ namespace wpfIncognito.ViewModel
             }
         }
 
-        public ICommand IncognitoOffCommand
+        /*public ICommand IncognitoOffCommand
         {
             get
             {
                 if (_IncognitoOffCommand == null)
                 {
-                    _IncognitoOffCommand = new RelayCommand(p => this.IncognitoOffExecute(), p => this.IncognitoOffCanExecute);
+                    _IncognitoOffCommand = new RelayCommand(IncognitoOffExecute, () => IncognitoOffCanExecute);
 
                 }
                 return _IncognitoOffCommand;
             }
-        }
+        }*/
 
         void IncognitoOffExecute()
         {

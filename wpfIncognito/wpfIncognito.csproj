@@ -87,12 +87,14 @@
     <Compile Include="Model\IncognitoSettings.cs" />
     <Compile Include="ViewModel\IncognitoViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\SoftwareListViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\IncognitoView.xaml.cs">
       <DependentUpon>IncognitoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SoftwareListView.xaml.cs">
       <DependentUpon>SoftwareListView.xaml</DependentUpon>
@@ -121,6 +123,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\IncognitoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,6 +13,7 @@ namespace wpfIncognito.ViewModel
 
         public IncognitoViewModel Incognito { get; private set; }
         public SoftwareListViewModel SoftwareList { get; private set; }
+        public SettingsViewModel Settings { get; private set; }
 
         public MainWindowViewModel(IncognitoSettings settings)
         {
@@ -21,6 +22,7 @@ namespace wpfIncognito.ViewModel
             this._folderWatcher = new FolderWatcher(_softwareRepository);
             this.SoftwareList = new SoftwareListViewModel(_softwareRepository, _incognitoSettings);
             this.Incognito = new IncognitoViewModel(_softwareRepository, _incognitoSettings);
+            this.Settings = new SettingsViewModel(_incognitoSettings);
         }
     }
 }

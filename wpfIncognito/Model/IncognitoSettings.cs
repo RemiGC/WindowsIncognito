@@ -14,5 +14,9 @@ namespace wpfIncognito.Model
         [DisplayName("Incognito ON on startup")]
         [Description("Set Incognito mode ON when starting the application")]
         public bool LockOnStartup { get; set; }
+
+        [DefaultValue(false)]
+        [DisplayName("Minimize Window on startup")]
+        public bool MinimizeOnStartup { get; set; }
     }
 }

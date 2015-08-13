@@ -21,9 +21,17 @@
             <vw:IncognitoView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+            <vw:SettingsView/>
+        </DataTemplate>
+
     </Window.Resources>
 
     <Grid Margin="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100">
             </RowDefinition>
@@ -40,12 +48,15 @@
                 </RowDefinition.Style>
             </RowDefinition>
         </Grid.RowDefinitions>
-        <Border Background="GhostWhite" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Grid.Row="0" Margin="5">
+        <Border Background="GhostWhite" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Grid.Row="0" Grid.Column="0" Margin="5">
             <UserControl Content="{Binding Path=Incognito}" Margin="5"></UserControl>
         </Border>
-        <Border Background="GhostWhite" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Grid.Row="1"  Margin="5">
+        <Border Background="GhostWhite" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Grid.Row="0" Grid.Column="1" Margin="5">
+            <UserControl Content="{Binding Path=Settings}" Margin="5"></UserControl>
+        </Border>
+        <Border Background="GhostWhite" Grid.ColumnSpan="2" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Grid.Row="1"  Margin="5">
             <Expander Header="Show All Software" Name="AllSoftwareExpander" Collapsed="AllSoftwareExpander_Collapsed" >
-                <UserControl Content="{Binding Path=.SoftwareList}" MinHeight="200" MinWidth="200" HorizontalContentAlignment="Stretch" Margin="5"></UserControl>
+                <UserControl Content="{Binding Path=SoftwareList}" MinHeight="200" MinWidth="200" HorizontalContentAlignment="Stretch" Margin="5"></UserControl>
             </Expander>
         </Border>
     </Grid>

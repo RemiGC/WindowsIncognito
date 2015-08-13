@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -38,7 +39,7 @@ namespace wpfIncognito.ViewModel
             {
                 if (_LockSoftware == null)
                 {
-                    _LockSoftware = new RelayCommand(p => this.LockExecute(), p => this.LockCanExecute());
+                    _LockSoftware = new RelayCommand(LockExecute, () => this.LockCanExecute());
 
                 }
                 return _LockSoftware;
