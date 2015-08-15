@@ -18,5 +18,9 @@ namespace wpfIncognito.Model
         [DefaultValue(false)]
         [DisplayName("Minimize Window on startup")]
         public bool MinimizeOnStartup { get; set; }
+
+        [DefaultValue(false)]
+        [DisplayName("Minimize to system tray")]
+        public bool MinimizeToSystemTray { get; set; }
     }
 }

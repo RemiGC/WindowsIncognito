@@ -7,10 +7,10 @@
         xmlns:vm="clr-namespace:wpfIncognito.ViewModel"
         xmlns:vw="clr-namespace:wpfIncognito.View"
         xmlns:local="clr-namespace:wpfIncognito"
-        xmlns:p="clr-namespace:wpfIncognito.Properties"
+        xmlns:p="clr-namespace:wpfIncognito.Properties" 
         mc:Ignorable="d"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
-        Title="Windows Incognito" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" MinWidth="640" Height="180" Width="640"  SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" >
+        Title="Windows Incognito" Icon="pack://application:,,,/Resources/Chrome_Incognito.ico" MinWidth="640" Height="180" Width="640"  SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" StateChanged="Window_StateChanged" Loaded="Window_Loaded" >
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:SoftwareListViewModel}">

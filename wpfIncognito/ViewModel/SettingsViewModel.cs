@@ -27,6 +27,32 @@ namespace wpfIncognito.ViewModel
             }
         }
 
+        public bool MinimizeOnStartup
+        {
+            get
+            {
+                return _incognitoSettings.MinimizeOnStartup;
+            }
+            set
+            {
+                _incognitoSettings.MinimizeOnStartup = value;
+                RaisePropertyChanged("MinimizeOnStartup");
+            }
+        }
+
+        public bool MinimizeToSystemTray
+        {
+            get
+            {
+                return _incognitoSettings.MinimizeToSystemTray;
+            }
+            set
+            {
+                _incognitoSettings.MinimizeToSystemTray = value;
+                RaisePropertyChanged("MinimizeToSystemTray");
+            }
+        }
+
         public SettingsViewModel(IncognitoSettings settings)
         {
             _incognitoSettings = settings;

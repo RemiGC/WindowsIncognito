@@ -7,6 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <CheckBox IsChecked="{Binding IncognitoModeOnStartup}" Content="Enable Incognito Mode on Startup"  ></CheckBox>            
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <CheckBox IsChecked="{Binding IncognitoModeOnStartup}" Content="Enable Incognito Mode on Startup"  Grid.Row="0"></CheckBox>
+        <CheckBox IsChecked="{Binding MinimizeOnStartup}" Content="Start Minimized"  Grid.Row="1" ></CheckBox>
+        <CheckBox IsChecked="{Binding MinimizeToSystemTray}" Content="Minimize to System Tray"  Grid.Row="2" ></CheckBox>
     </Grid>
 </UserControl>
