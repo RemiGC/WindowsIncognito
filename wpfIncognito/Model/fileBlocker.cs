@@ -2,7 +2,6 @@
 using System.IO;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using System.Windows;
 
 namespace wpfIncognito.Model
 {

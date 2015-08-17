@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -11,7 +10,7 @@ namespace wpfIncognito.DataAccess
 {
     public class SoftwareRepository
     {
-        readonly List<fileBlocker> appList;
+        List<fileBlocker> appList;
 
         public SoftwareRepository()
         {
@@ -72,6 +71,14 @@ namespace wpfIncognito.DataAccess
         public List<fileBlocker> GetSoftwares()
         {
             return new List<fileBlocker>(appList);
+        }
+
+        public void Save()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<fileBlocker>));
+            TextWriter textWriter = new StreamWriter("applist.xml");
+            serializer.Serialize(textWriter, appList);
+            textWriter.Close();
         }
     }
 }

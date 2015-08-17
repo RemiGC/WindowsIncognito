@@ -1,6 +1,7 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
 using SettingsProviderNet;
 using System.Windows;
+using wpfIncognito.DataAccess;
 using wpfIncognito.Model;
 using wpfIncognito.ViewModel;
 
@@ -14,6 +15,8 @@ namespace wpfIncognito
         private TaskbarIcon tb;
         private IncognitoSettings appSettings;
         private SettingsProvider settingsProvider;
+        private SoftwareRepository softwareRepository;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -22,7 +25,8 @@ namespace wpfIncognito
             appSettings = settingsProvider.GetSettings<IncognitoSettings>();
 
             MainWindow mw = new MainWindow();
-            var viewModel = new MainWindowViewModel(appSettings,tb);
+            softwareRepository = new SoftwareRepository();
+            var viewModel = new MainWindowViewModel(appSettings, softwareRepository, tb);
             mw.DataContext = viewModel;
             mw.Show();
         }
@@ -30,6 +34,7 @@ namespace wpfIncognito
         protected override void OnExit(ExitEventArgs e)
         {
             settingsProvider.SaveSettings(appSettings);
+            softwareRepository.Save();
             base.OnExit(e);
         }
     }

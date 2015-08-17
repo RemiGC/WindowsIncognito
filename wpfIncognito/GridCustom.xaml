@@ -18,16 +18,10 @@
     <tb:TaskbarIcon x:Key="taskbarIcon" IconSource="pack://application:,,,/Resources/Chrome_Incognito.ico" ToolTipText="Windows Incognito" >
 
     <!-- Set a simple context menu  -->
-    <tb:TaskbarIcon.ContextMenu>
-        <ContextMenu>
-            <MenuItem Header="Show" />
-            <MenuItem Header="Hide" />
-                <Separator></Separator>
-            <MenuItem Header="Incognito ON" />
-            <MenuItem Header="Incognito OFF" />
+        <tb:TaskbarIcon.ContextMenu>
+            <ContextMenu>
             </ContextMenu>
-    </tb:TaskbarIcon.ContextMenu>
-
+        </tb:TaskbarIcon.ContextMenu>
     </tb:TaskbarIcon>
 
 </ResourceDictionary>

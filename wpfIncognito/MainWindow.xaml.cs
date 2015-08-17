@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows;
-using System.IO;
-using System.Xml.Serialization;
 using System.Windows.Controls;
 using wpfIncognito.ViewModel;
-using System.Windows.Input;
 
 namespace wpfIncognito
 {
