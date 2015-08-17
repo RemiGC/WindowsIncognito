@@ -7,6 +7,7 @@
         xmlns:vm="clr-namespace:wpfIncognito.ViewModel"
         xmlns:vw="clr-namespace:wpfIncognito.View"
         xmlns:local="clr-namespace:wpfIncognito"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:p="clr-namespace:wpfIncognito.Properties" 
         mc:Ignorable="d"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
@@ -24,8 +25,8 @@
         <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
             <vw:SettingsView/>
         </DataTemplate>
-
-    </Window.Resources>
+        
+   </Window.Resources>
 
     <Grid Margin="4">
         <Grid.ColumnDefinitions>
@@ -48,6 +49,25 @@
                 </RowDefinition.Style>
             </RowDefinition>
         </Grid.RowDefinitions>
+        
+        <!--#region  TaskBar Icon-->
+        <tb:TaskbarIcon IconSource="pack://application:,,,/Resources/Chrome_Incognito.ico" ToolTipText="Windows Incognito" DoubleClickCommand="{Binding ShowWindowCommand}" >
+
+            <!-- Set a simple context menu  -->
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Incognito ON" Command="{Binding Path=Incognito.IncognitoOnCommand}" />
+                    <MenuItem Header="Incognito OFF" Command="{Binding Path=Incognito.IncognitoOffCommand}" />
+                    <Separator />
+                    <MenuItem Header="Show" Command="{Binding ShowWindowCommand}" />
+                    <MenuItem Header="Hide" Command="{Binding HideWindowCommand}" />
+                    <Separator />
+                    <MenuItem Header="Close" Command="{Binding CloseWindowCommand}" />
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+        <!--#endregion-->
+        
         <Border Background="GhostWhite" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Grid.Row="0" Grid.Column="0" Margin="5">
             <UserControl Content="{Binding Path=Incognito}" Margin="5"></UserControl>
         </Border>

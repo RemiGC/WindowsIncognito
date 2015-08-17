@@ -14,7 +14,6 @@ namespace wpfIncognito.ViewModel
         SoftwareRepository _softwareRepository;
         IncognitoSettings _incognitoSettings;
         FolderWatcher _folderWatcher;
-        private TaskbarIcon tb;
 
         public IncognitoViewModel Incognito { get; private set; }
         public SoftwareListViewModel SoftwareList { get; private set; }
@@ -24,11 +23,10 @@ namespace wpfIncognito.ViewModel
         public RelayCommand HideWindowCommand { get; private set; }
         public RelayCommand CloseWindowCommand { get; private set; }
 
-        public MainWindowViewModel(IncognitoSettings settings, SoftwareRepository softwareRepository, TaskbarIcon icon)
+        public MainWindowViewModel(IncognitoSettings settings, SoftwareRepository softwareRepository)
         {
             _softwareRepository = softwareRepository;
             _incognitoSettings = settings;
-            tb = icon;
             this._folderWatcher = new FolderWatcher(_softwareRepository);
             this.SoftwareList = new SoftwareListViewModel(_softwareRepository, _incognitoSettings);
             this.Incognito = new IncognitoViewModel(_softwareRepository, _incognitoSettings);
@@ -36,47 +34,6 @@ namespace wpfIncognito.ViewModel
             CloseWindowCommand = new RelayCommand(CloseWindowExecute);
             ShowWindowCommand = new RelayCommand(ShowWindowExecute, () => ShowWindowCanExecute());
             HideWindowCommand = new RelayCommand(HideWindowExecute, () => HideWindowCanExecute());
-            tb.DoubleClickCommand = ShowWindowCommand;
-            TaskIconContextMenuSetup();
-        }
-
-        private void TaskIconContextMenuSetup()
-        {
-            //add Incognito On
-            MenuItem miON = new MenuItem();
-            miON.Header = "Incognito ON";
-            miON.Command = Incognito.IncognitoOnCommand;
-            tb.ContextMenu.Items.Add(miON);
-
-            //Add Incognito Off
-            MenuItem miOFF = new MenuItem();
-            miOFF.Header = "Incognito OFF";
-            miOFF.Command = Incognito.IncognitoOffCommand;
-            tb.ContextMenu.Items.Add(miOFF);
-
-            //add separator
-            tb.ContextMenu.Items.Add(new Separator());
-
-            //Add show
-            MenuItem miShow = new MenuItem();
-            miShow.Header = "Show";
-            miShow.Command = ShowWindowCommand;
-            tb.ContextMenu.Items.Add(miShow);
-
-            //add hide
-            MenuItem miHide = new MenuItem();
-            miHide.Header = "Hide";
-            miHide.Command = HideWindowCommand;
-            tb.ContextMenu.Items.Add(miHide);
-
-            //add separator
-            tb.ContextMenu.Items.Add(new Separator());
-
-            //add close
-            MenuItem miClose = new MenuItem();
-            miClose.Header = "Close";
-            miClose.Command = CloseWindowCommand;
-            tb.ContextMenu.Items.Add(miClose);
         }
 
         public override void Cleanup()

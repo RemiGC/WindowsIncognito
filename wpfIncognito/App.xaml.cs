@@ -20,13 +20,12 @@ namespace wpfIncognito
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            tb = (TaskbarIcon)FindResource("taskbarIcon");
             settingsProvider = new SettingsProvider(new LocalAppDataStorage("WindowsIncognito"));
             appSettings = settingsProvider.GetSettings<IncognitoSettings>();
 
             MainWindow mw = new MainWindow();
             softwareRepository = new SoftwareRepository();
-            var viewModel = new MainWindowViewModel(appSettings, softwareRepository, tb);
+            var viewModel = new MainWindowViewModel(appSettings, softwareRepository);
             mw.DataContext = viewModel;
             mw.Show();
         }
