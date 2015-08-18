@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace wpfIncognito.Model
 {
     [Serializable()]
-    public class fileBlocker : INotifyPropertyChanged
+    public class fileBlocker : INotifyPropertyChanged, IDisposable
     {
         private string appName;
         public string AppName
@@ -219,5 +219,31 @@ namespace wpfIncognito.Model
                 return fileLocked;
             }
         }
+
+        #region IDisposable
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            { 
+                if (disposing)
+                {
+                    // free managed resources
+                    if (fileStream != null)
+                    {
+                        fileStream.Dispose();
+                        fileStream = null;
+                    }
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        #endregion
     }
 }

@@ -5,7 +5,7 @@ using wpfIncognito.DataAccess;
 
 namespace wpfIncognito
 {
-    public class FolderWatcher
+    public class FolderWatcher: IDisposable
     {
         SoftwareRepository _softwareRepository;
         private FileSystemWatcher watcher;
@@ -31,5 +31,29 @@ namespace wpfIncognito
             var currentFile = _softwareRepository.GetSoftwares().Single(i => i.FileName.Equals(e.Name,StringComparison.InvariantCultureIgnoreCase));
             currentFile.ReCheckFileInfo();
         }
+
+        #region IDisposable
+        private bool disposedValue = false; // To detect redundant calls
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // free managed resources
+                    if (watcher != null)
+                    {
+                        watcher.Dispose();
+                        watcher = null;
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

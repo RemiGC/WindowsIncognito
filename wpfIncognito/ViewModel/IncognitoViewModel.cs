@@ -32,13 +32,16 @@ namespace wpfIncognito.ViewModel
             this._softwareRepository = softwareRepository;
             this.AllSoftwares = new ObservableCollection<fileBlocker>(softwareRepository.GetSoftwares());
             this._incognitoSettings = settings;
+
             if(_incognitoSettings.LockOnStartup)
             {
-                IncognitoOnExecute();
+                LockAll();
             } else
             {
-                IncognitoOffExecute();
+                UnlockAll();
             }
+
+            isIncognito = _incognitoSettings.LockOnStartup;
 
             IncognitoOnCommand = new RelayCommand(IncognitoOnExecute, () => IncognitoOnCanExecute);
             IncognitoOffCommand = new RelayCommand(IncognitoOffExecute, () => IncognitoOffCanExecute);
@@ -52,32 +55,35 @@ namespace wpfIncognito.ViewModel
             }
         }
 
-        #region All Incognito on/off Command
-        /*public ICommand IncognitoOnCommand
-        {
-            get
-            {
-                if (_IncognitoOnCommand == null)
-                {
-                    _IncognitoOnCommand = new RelayCommand(IncognitoOnExecute, () => IncognitoOnCanExecute);
-
-                }
-                return _IncognitoOnCommand;
-            }
-        }*/
-
-        void IncognitoOnExecute()
+        private bool LockAll()
         {
             bool allLocked = true;
             foreach (fileBlocker fb in AllSoftwares)
             {
-                if(!fb.Lock())
+                if (!fb.Lock())
                 {
                     allLocked = false;
                 }
             }
+            return allLocked;
+        }
 
-            if(!allLocked)
+        private void UnlockAll()
+        {
+            foreach (fileBlocker fb in AllSoftwares)
+            {
+                if (fb.IsLocked)
+                {
+                    fb.Unlock();
+                }
+            }
+        }
+
+        #region All Incognito on/off Command
+
+        void IncognitoOnExecute()
+        {
+            if(!LockAll())
             {
                 MessageBox.Show("Impossible to activate incognito mode for all software\nCheck the status column in all software for more details");
             }
@@ -94,28 +100,9 @@ namespace wpfIncognito.ViewModel
             }
         }
 
-        /*public ICommand IncognitoOffCommand
-        {
-            get
-            {
-                if (_IncognitoOffCommand == null)
-                {
-                    _IncognitoOffCommand = new RelayCommand(IncognitoOffExecute, () => IncognitoOffCanExecute);
-
-                }
-                return _IncognitoOffCommand;
-            }
-        }*/
-
         void IncognitoOffExecute()
         {
-            foreach (fileBlocker fb in AllSoftwares)
-            {
-                if (fb.IsLocked)
-                {
-                    fb.Unlock();
-                }
-            }
+            UnlockAll();
             isIncognito = false;
             RaisePropertyChanged("IsIncognitoModeOn");
         }

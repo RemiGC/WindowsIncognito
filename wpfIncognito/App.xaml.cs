@@ -12,7 +12,6 @@ namespace wpfIncognito
     /// </summary>
     public partial class App : Application
     {
-        private TaskbarIcon tb;
         private IncognitoSettings appSettings;
         private SettingsProvider settingsProvider;
         private SoftwareRepository softwareRepository;
