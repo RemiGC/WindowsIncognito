@@ -22,17 +22,5 @@ namespace wpfIncognito.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool lockOnStartup {
-            get {
-                return ((bool)(this["lockOnStartup"]));
-            }
-            set {
-                this["lockOnStartup"] = value;
-            }
-        }
     }
 }

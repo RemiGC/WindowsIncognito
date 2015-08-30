@@ -1,5 +1,4 @@
-﻿using Hardcodet.Wpf.TaskbarNotification;
-using SettingsProviderNet;
+﻿using SettingsProviderNet;
 using System.Windows;
 using wpfIncognito.DataAccess;
 using wpfIncognito.Model;

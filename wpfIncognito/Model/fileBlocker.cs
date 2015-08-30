@@ -115,7 +115,7 @@ namespace wpfIncognito.Model
                 {
                     fileStream = new FileStream(FullPath, FileMode.Open, FileAccess.Write);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     //Catch the exception to prevent further progression
                 }
