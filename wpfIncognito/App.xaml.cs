@@ -18,6 +18,7 @@ namespace wpfIncognito
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            //Use RoamingAppDataStorage if you have the package version of SettingsProvider.net package
             settingsProvider = new SettingsProvider(new LocalAppDataStorage("WindowsIncognito"));
             appSettings = settingsProvider.GetSettings<IncognitoSettings>();
 
